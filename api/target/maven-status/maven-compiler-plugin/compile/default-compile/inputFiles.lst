@@ -1,0 +1,15 @@
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/SyncDataRecord.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/SyncConstant.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/api/UgandaEMRSyncService.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/SyncFacilitySettings.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/api/db/hibernate/HibernateUgandaEMRSyncDAO.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/api/impl/UgandaEMRSyncServiceImpl.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/SyncGlobalProperties.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/SyncSetting.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/UgandaEMRSyncActivator.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/UgandaEMRHttpURLConnection.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/UgandaEMRSync.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/UgandaEMRRecord.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/api/deploy/CommonMetadataBundle.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/ugserver/SyncExceptions.java
+/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/main/java/org/openmrs/module/ugandaemr/sync/api/db/UgandaEMRSyncDAO.java

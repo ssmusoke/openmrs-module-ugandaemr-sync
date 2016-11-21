@@ -1,0 +1,15 @@
+org/openmrs/module/ugandaemr/sync/api/db/hibernate/HibernateUgandaEMRSyncDAO.class
+org/openmrs/module/ugandaemr/sync/ugserver/SyncDataRecord.class
+org/openmrs/module/ugandaemr/sync/ugserver/SyncExceptions.class
+org/openmrs/module/ugandaemr/sync/api/impl/UgandaEMRSyncServiceImpl.class
+org/openmrs/module/ugandaemr/sync/UgandaEMRSync.class
+org/openmrs/module/ugandaemr/sync/ugserver/UgandaEMRRecord.class
+org/openmrs/module/ugandaemr/sync/ugserver/SyncGlobalProperties.class
+org/openmrs/module/ugandaemr/sync/UgandaEMRSyncActivator.class
+org/openmrs/module/ugandaemr/sync/ugserver/SyncConstant.class
+org/openmrs/module/ugandaemr/sync/ugserver/SyncFacilitySettings.class
+org/openmrs/module/ugandaemr/sync/api/deploy/CommonMetadataBundle.class
+org/openmrs/module/ugandaemr/sync/SyncSetting.class
+org/openmrs/module/ugandaemr/sync/api/db/UgandaEMRSyncDAO.class
+org/openmrs/module/ugandaemr/sync/api/UgandaEMRSyncService.class
+org/openmrs/module/ugandaemr/sync/ugserver/UgandaEMRHttpURLConnection.class
