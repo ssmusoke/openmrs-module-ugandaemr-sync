@@ -29,8 +29,6 @@ public class GlobalPropertyTest extends BaseModuleContextSensitiveTest {
     public void shouldSetupContext() throws Exception {
         SyncGlobalProperties syncGlobalProperties= new SyncGlobalProperties();
         syncGlobalProperties.setSyncFacilityProperties();
-        syncGlobalProperties.setSyncFacilityProperties();
-        assertEquals(syncGlobalProperties.getGlobalProperty(SyncConstant.HEALTH_CENTER_SYNC_ID),SyncConstant.HEALTH_CENTER_SYNC_ID);
+        assertEquals(syncGlobalProperties.getGlobalProperty(SyncConstant.HEALTH_CENTER_SYNC_ID),SyncConstant.HEALTH_CENTER_SYNC_ID_PLACE_HOLDER);
     }
-
 }
