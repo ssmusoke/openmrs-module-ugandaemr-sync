@@ -1,4 +1,5 @@
 org/openmrs/module/ugandaemr/sync/api/ugserver/HTTPURLConnectionTest.class
+org/openmrs/module/ugandaemr/sync/api/ugserver/PostTest.class
 org/openmrs/module/ugandaemr/sync/api/api/db/hibernate/HibernateSyncDAOTest.class
 org/openmrs/module/ugandaemr/sync/api/GlobalPropertyTest.class
 org/openmrs/module/ugandaemr/sync/api/UgandaEMRSyncServiceTest.class

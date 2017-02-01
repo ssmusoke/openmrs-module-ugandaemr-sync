@@ -26,10 +26,9 @@ public class SyncFacilitySettings {
         BufferedReader bufferedReader = null;
         SyncService syncService=new SyncServiceImpl();
         if (responseCode == 200) {
-            bufferedReader = httpURLConnection.getHttpResponse(httpURLConnection.sendPost(SyncConstant.XML_CONTENT_TYPE, "get facility Id", globalProperty.getValue().toString(), syncService.getGlobalProperty(SyncConstant.HEALTH_CENTER_SYNC_ID), url, SyncConstant.FACILITY_ID_REQUEST_TYPE));
+            //bufferedReader = httpURLConnection.getHttpResponse(httpURLConnection.sendPost(SyncConstant.XML_CONTENT_TYPE, "get facility Id", globalProperty.getValue().toString(), syncService.getGlobalProperty(SyncConstant.HEALTH_CENTER_SYNC_ID), url,SyncConstant.FACILITY_ID_REQUEST_TYPE));
         }
         httpURLConnection.getResponseString(bufferedReader);
-
     }
 
 }

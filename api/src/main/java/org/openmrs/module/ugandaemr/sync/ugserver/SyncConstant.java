@@ -25,7 +25,7 @@ public class SyncConstant {
     public  static final String HEALTH_CENTER_LOCATION_NAME="ugandaemrsync.healthCenterLocation";
 
 
-    public  static final String SERVER_IP_PLACE_HOLDER ="192.168.1.8";
+    public  static final String SERVER_IP_PLACE_HOLDER ="192.168.1.28:5000";
     public  static final String HEALTH_CENTER_UUID_PLACE_HOLDER ="This will be filled when a request is made to the server for an Id";
     public  static final String HEALTH_CENTER_SYNC_ID_PLACE_HOLDER="This will be filled when a connection is created to server";
     public  static final String HEALTH_CENTER_LOCATION_NAME_PLACE_HOLDER="Type in the District Where This H.C is located";
@@ -33,6 +33,9 @@ public class SyncConstant {
     public  static final int CONNECTION_SUCCESS=200;
     public  static final int CONNECTION_FAILES=404;
     public static final String XML_CONTENT_TYPE="application/xml";
+    public static final String PLAIN_TEXT_CONTENT_TYPE="text/plain";
+    public static final String DEFAULT_CONTENT_TYPE="application/x-www-form-urlencoded";
+
 
     /**
      * Request Types of to the server
