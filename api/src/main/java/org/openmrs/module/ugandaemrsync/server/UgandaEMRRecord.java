@@ -24,9 +24,13 @@ public class UgandaEMRRecord {
 		return syncRecordList;
 	}
 	
-	public SyncRecord updateSyncedRecord(SyncRecord syncRecord) {
+	public SyncRecord updateSyncedRecord(Integer uuid) {
 		SyncService syncService = Context.getService(SyncService.class);
-		syncService.updateSyncRecord(syncRecord);
+		SyncRecord syncRecord = syncService.getSyncRecord(uuid);
+		if (syncRecord != null) {
+			syncRecord.setState(SyncRecordState.COMMITTED_AND_CONFIRMATION_SENT);
+			syncService.updateSyncRecord(syncRecord);
+		}
 		return syncRecord;
 	}
 }
