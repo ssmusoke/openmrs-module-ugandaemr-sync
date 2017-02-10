@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This class configured as controller using annotation and mapped with the URL of
  * 'module/ugandaemrsync/ugandaemrsyncLink.form'.
  */
-@Controller("${rootrootArtifactId}.UgandaemrSyncController")
+@Controller("${rootrootArtifactId}.UgandaEMRSyncController")
 @RequestMapping(value = "module/ugandaemrsync/ugandaemrsync.form")
-public class UgandaemrSyncController {
+public class UgandaEMRSyncController {
 	
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
