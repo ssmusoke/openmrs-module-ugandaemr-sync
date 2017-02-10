@@ -23,7 +23,7 @@ public class SyncConstant {
 	
 	public static final String SERVER_PROTOCOL_PLACE_HOLDER = "http://";
 	
-	public static final String SERVER_IP_PLACE_HOLDER = "127.0.0.1:5000";
+	public static final String SERVER_IP_PLACE_HOLDER = "192.168.1.28:5000";
 	
 	public static final String HEALTH_CENTER_SYNC_ID_PLACE_HOLDER = "This will be filled when a connection is created to server";
 	
