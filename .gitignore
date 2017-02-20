@@ -2,3 +2,6 @@
 .idea/
 api/target/
 omod/target/
+omod/ugandaemr.sync-omod.iml
+ugandaemr.sync.iml
+api/ugandaemr.sync-api.iml
