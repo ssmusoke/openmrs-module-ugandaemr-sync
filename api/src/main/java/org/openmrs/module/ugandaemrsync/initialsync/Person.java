@@ -1,19 +1,19 @@
-package org.openmrs.module.ugandaemrsync.InitalSync;
+package org.openmrs.module.ugandaemrsync.initialsync;
 
 import java.util.Date;
 
 /**
  * Created by lubwamasamuel on 20/02/2017.
  */
-public class Visit {
+public class Person {
 
     private int id;
-    private String patient;
-    private String visit_type;
-    private Date start_datetime;
-    private Date stop_datetime;
-    private String indication_concept;
-    private String location;
+    private String gender;
+    private Date birthdate;
+    private boolean birthdate_estimated;
+    private boolean dead;
+    private Date death_date;
+    private String cause_of_death;
     private String creator;
     private Date date_created;
     private String changed_by;
@@ -25,15 +25,18 @@ public class Visit {
     private String uuid;
     private String facility;
     private String state;
+    private boolean deathdate_estimated;
+    private Date birthtime;
 
-    public Visit(int id, String patient, String visit_type, Date start_datetime, Date stop_datetime, String indication_concept, String location, String creator, Date date_created, String changed_by, Date date_changed, boolean voided, String voided_by, Date date_voided, String void_reason, String uuid, String facility, String state) {
+
+    public Person(int id, String gender, Date birthdate, boolean birthdate_estimated, boolean dead, Date death_date, String cause_of_death, String creator, Date date_created, String changed_by, Date date_changed, boolean voided, String voided_by, Date date_voided, String void_reason, String uuid, String facility, String state, boolean deathdate_estimated, Date birthtime) {
         this.id = id;
-        this.patient = patient;
-        this.visit_type = visit_type;
-        this.start_datetime = start_datetime;
-        this.stop_datetime = stop_datetime;
-        this.indication_concept = indication_concept;
-        this.location = location;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.birthdate_estimated = birthdate_estimated;
+        this.dead = dead;
+        this.death_date = death_date;
+        this.cause_of_death = cause_of_death;
         this.creator = creator;
         this.date_created = date_created;
         this.changed_by = changed_by;
@@ -45,6 +48,8 @@ public class Visit {
         this.uuid = uuid;
         this.facility = facility;
         this.state = state;
+        this.deathdate_estimated = deathdate_estimated;
+        this.birthtime = birthtime;
     }
 
     public int getId() {
@@ -55,52 +60,52 @@ public class Visit {
         this.id = id;
     }
 
-    public String getPatient() {
-        return patient;
+    public String getGender() {
+        return gender;
     }
 
-    public void setPatient(String patient) {
-        this.patient = patient;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getVisit_type() {
-        return visit_type;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public void setVisit_type(String visit_type) {
-        this.visit_type = visit_type;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
-    public Date getStart_datetime() {
-        return start_datetime;
+    public boolean isBirthdate_estimated() {
+        return birthdate_estimated;
     }
 
-    public void setStart_datetime(Date start_datetime) {
-        this.start_datetime = start_datetime;
+    public void setBirthdate_estimated(boolean birthdate_estimated) {
+        this.birthdate_estimated = birthdate_estimated;
     }
 
-    public Date getStop_datetime() {
-        return stop_datetime;
+    public boolean isDead() {
+        return dead;
     }
 
-    public void setStop_datetime(Date stop_datetime) {
-        this.stop_datetime = stop_datetime;
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 
-    public String getIndication_concept() {
-        return indication_concept;
+    public Date getDeath_date() {
+        return death_date;
     }
 
-    public void setIndication_concept(String indication_concept) {
-        this.indication_concept = indication_concept;
+    public void setDeath_date(Date death_date) {
+        this.death_date = death_date;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCause_of_death() {
+        return cause_of_death;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCause_of_death(String cause_of_death) {
+        this.cause_of_death = cause_of_death;
     }
 
     public String getCreator() {
@@ -189,5 +194,21 @@ public class Visit {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public boolean isDeathdate_estimated() {
+        return deathdate_estimated;
+    }
+
+    public void setDeathdate_estimated(boolean deathdate_estimated) {
+        this.deathdate_estimated = deathdate_estimated;
+    }
+
+    public Date getBirthtime() {
+        return birthtime;
+    }
+
+    public void setBirthtime(Date birthtime) {
+        this.birthtime = birthtime;
     }
 }

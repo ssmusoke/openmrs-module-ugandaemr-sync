@@ -1,20 +1,23 @@
-package org.openmrs.module.ugandaemrsync.InitalSync;
+package org.openmrs.module.ugandaemrsync.initialsync;
 
 import java.util.Date;
 
 /**
  * Created by lubwamasamuel on 20/02/2017.
  */
-public class PersonAttribute {
+public class PatientIdentifier {
+
 
     private int id;
-    private String person;
-    private String value;
-    private String person_attribute_type;
+    private String patient;
+    private String identifier;
+    private String identifier_type;
+    private boolean preferred;
+    private String location;
     private String creator;
     private Date date_created;
-    private String changed_by;
     private Date date_changed;
+    private String changed_by;
     private boolean voided;
     private String voided_by;
     private Date date_voided;
@@ -23,15 +26,17 @@ public class PersonAttribute {
     private String facility;
     private String state;
 
-    public PersonAttribute(int id, String person, String value, String person_attribute_type, String creator, Date date_created, String changed_by, Date date_changed, boolean voided, String voided_by, Date date_voided, String void_reason, String uuid, String facility, String state) {
+    public PatientIdentifier(int id, String patient, String identifier, String identifier_type, boolean preferred, String location, String creator, Date date_created, Date date_changed, String changed_by, boolean voided, String voided_by, Date date_voided, String void_reason, String uuid, String facility, String state) {
         this.id = id;
-        this.person = person;
-        this.value = value;
-        this.person_attribute_type = person_attribute_type;
+        this.patient = patient;
+        this.identifier = identifier;
+        this.identifier_type = identifier_type;
+        this.preferred = preferred;
+        this.location = location;
         this.creator = creator;
         this.date_created = date_created;
-        this.changed_by = changed_by;
         this.date_changed = date_changed;
+        this.changed_by = changed_by;
         this.voided = voided;
         this.voided_by = voided_by;
         this.date_voided = date_voided;
@@ -49,28 +54,44 @@ public class PersonAttribute {
         this.id = id;
     }
 
-    public String getPerson() {
-        return person;
+    public String getPatient() {
+        return patient;
     }
 
-    public void setPerson(String person) {
-        this.person = person;
+    public void setPatient(String patient) {
+        this.patient = patient;
     }
 
-    public String getValue() {
-        return value;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
-    public String getPerson_attribute_type() {
-        return person_attribute_type;
+    public String getIdentifier_type() {
+        return identifier_type;
     }
 
-    public void setPerson_attribute_type(String person_attribute_type) {
-        this.person_attribute_type = person_attribute_type;
+    public void setIdentifier_type(String identifier_type) {
+        this.identifier_type = identifier_type;
+    }
+
+    public boolean isPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(boolean preferred) {
+        this.preferred = preferred;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getCreator() {
@@ -89,20 +110,20 @@ public class PersonAttribute {
         this.date_created = date_created;
     }
 
-    public String getChanged_by() {
-        return changed_by;
-    }
-
-    public void setChanged_by(String changed_by) {
-        this.changed_by = changed_by;
-    }
-
     public Date getDate_changed() {
         return date_changed;
     }
 
     public void setDate_changed(Date date_changed) {
         this.date_changed = date_changed;
+    }
+
+    public String getChanged_by() {
+        return changed_by;
+    }
+
+    public void setChanged_by(String changed_by) {
+        this.changed_by = changed_by;
     }
 
     public boolean isVoided() {

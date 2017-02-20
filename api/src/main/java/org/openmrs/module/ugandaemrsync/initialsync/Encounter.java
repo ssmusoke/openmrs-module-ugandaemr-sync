@@ -1,46 +1,46 @@
-package org.openmrs.module.ugandaemrsync.InitalSync;
+package org.openmrs.module.ugandaemrsync.initialsync;
 
 import java.util.Date;
 
 /**
  * Created by lubwamasamuel on 20/02/2017.
  */
-public class PatientIdentifier {
-
-
+public class Encounter {
     private int id;
+    private String encounter_type;
     private String patient;
-    private String identifier;
-    private String identifier_type;
-    private boolean preferred;
     private String location;
+    private String form;
+    private Date encounter_datetime;
     private String creator;
     private Date date_created;
-    private Date date_changed;
-    private String changed_by;
-    private boolean voided;
+    private int voided;
     private String voided_by;
     private Date date_voided;
     private String void_reason;
+    private String changed_by;
+    private Date date_changed;
+    private String visit;
     private String uuid;
     private String facility;
     private String state;
 
-    public PatientIdentifier(int id, String patient, String identifier, String identifier_type, boolean preferred, String location, String creator, Date date_created, Date date_changed, String changed_by, boolean voided, String voided_by, Date date_voided, String void_reason, String uuid, String facility, String state) {
+    public Encounter(int id, String encounter_type, String patient, String location, String form, Date encounter_datetime, String creator, Date date_created, int voided, String voided_by, Date date_voided, String void_reason, String changed_by, Date date_changed, String visit, String uuid, String facility, String state) {
         this.id = id;
+        this.encounter_type = encounter_type;
         this.patient = patient;
-        this.identifier = identifier;
-        this.identifier_type = identifier_type;
-        this.preferred = preferred;
         this.location = location;
+        this.form = form;
+        this.encounter_datetime = encounter_datetime;
         this.creator = creator;
         this.date_created = date_created;
-        this.date_changed = date_changed;
-        this.changed_by = changed_by;
         this.voided = voided;
         this.voided_by = voided_by;
         this.date_voided = date_voided;
         this.void_reason = void_reason;
+        this.changed_by = changed_by;
+        this.date_changed = date_changed;
+        this.visit = visit;
         this.uuid = uuid;
         this.facility = facility;
         this.state = state;
@@ -54,6 +54,14 @@ public class PatientIdentifier {
         this.id = id;
     }
 
+    public String getEncounter_type() {
+        return encounter_type;
+    }
+
+    public void setEncounter_type(String encounter_type) {
+        this.encounter_type = encounter_type;
+    }
+
     public String getPatient() {
         return patient;
     }
@@ -62,36 +70,28 @@ public class PatientIdentifier {
         this.patient = patient;
     }
 
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getIdentifier_type() {
-        return identifier_type;
-    }
-
-    public void setIdentifier_type(String identifier_type) {
-        this.identifier_type = identifier_type;
-    }
-
-    public boolean isPreferred() {
-        return preferred;
-    }
-
-    public void setPreferred(boolean preferred) {
-        this.preferred = preferred;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public void setForm(String form) {
+        this.form = form;
+    }
+
+    public Date getEncounter_datetime() {
+        return encounter_datetime;
+    }
+
+    public void setEncounter_datetime(Date encounter_datetime) {
+        this.encounter_datetime = encounter_datetime;
     }
 
     public String getCreator() {
@@ -110,27 +110,11 @@ public class PatientIdentifier {
         this.date_created = date_created;
     }
 
-    public Date getDate_changed() {
-        return date_changed;
-    }
-
-    public void setDate_changed(Date date_changed) {
-        this.date_changed = date_changed;
-    }
-
-    public String getChanged_by() {
-        return changed_by;
-    }
-
-    public void setChanged_by(String changed_by) {
-        this.changed_by = changed_by;
-    }
-
-    public boolean isVoided() {
+    public int getVoided() {
         return voided;
     }
 
-    public void setVoided(boolean voided) {
+    public void setVoided(int voided) {
         this.voided = voided;
     }
 
@@ -156,6 +140,30 @@ public class PatientIdentifier {
 
     public void setVoid_reason(String void_reason) {
         this.void_reason = void_reason;
+    }
+
+    public String getChanged_by() {
+        return changed_by;
+    }
+
+    public void setChanged_by(String changed_by) {
+        this.changed_by = changed_by;
+    }
+
+    public Date getDate_changed() {
+        return date_changed;
+    }
+
+    public void setDate_changed(Date date_changed) {
+        this.date_changed = date_changed;
+    }
+
+    public String getVisit() {
+        return visit;
+    }
+
+    public void setVisit(String visit) {
+        this.visit = visit;
     }
 
     public String getUuid() {

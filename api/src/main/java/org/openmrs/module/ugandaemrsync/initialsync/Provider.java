@@ -1,15 +1,17 @@
-package org.openmrs.module.ugandaemrsync.InitalSync;
+package org.openmrs.module.ugandaemrsync.initialsync;
 
 import java.util.Date;
 
 /**
  * Created by lubwamasamuel on 20/02/2017.
  */
-public class EncounterRole {
+public class Provider {
+
 
     private int id;
+    private String person;
     private String name;
-    private String description;
+    private String identifier;
     private String creator;
     private Date date_created;
     private String changed_by;
@@ -19,13 +21,15 @@ public class EncounterRole {
     private Date date_retired;
     private String retire_reason;
     private String uuid;
+    private String provider_role;
     private String facility;
     private String state;
 
-    public EncounterRole(int id, String name, String description, String creator, Date date_created, String changed_by, Date date_changed, boolean retired, String retired_by, Date date_retired, String retire_reason, String uuid, String facility, String state) {
+    public Provider(int id, String person, String name, String identifier, String creator, Date date_created, String changed_by, Date date_changed, boolean retired, String retired_by, Date date_retired, String retire_reason, String uuid, String provider_role, String facility, String state) {
         this.id = id;
+        this.person = person;
         this.name = name;
-        this.description = description;
+        this.identifier = identifier;
         this.creator = creator;
         this.date_created = date_created;
         this.changed_by = changed_by;
@@ -35,6 +39,7 @@ public class EncounterRole {
         this.date_retired = date_retired;
         this.retire_reason = retire_reason;
         this.uuid = uuid;
+        this.provider_role = provider_role;
         this.facility = facility;
         this.state = state;
     }
@@ -47,6 +52,14 @@ public class EncounterRole {
         this.id = id;
     }
 
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,12 +68,12 @@ public class EncounterRole {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getCreator() {
@@ -133,6 +146,14 @@ public class EncounterRole {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getProvider_role() {
+        return provider_role;
+    }
+
+    public void setProvider_role(String provider_role) {
+        this.provider_role = provider_role;
     }
 
     public String getFacility() {

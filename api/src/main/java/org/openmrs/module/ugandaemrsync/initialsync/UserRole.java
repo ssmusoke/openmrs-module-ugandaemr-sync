@@ -1,4 +1,4 @@
-package org.openmrs.module.ugandaemrsync.InitalSync;
+package org.openmrs.module.ugandaemrsync.initialsync;
 
 /**
  * Created by lubwamasamuel on 20/02/2017.
