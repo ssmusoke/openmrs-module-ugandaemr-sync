@@ -20,7 +20,11 @@ public class SyncConstant {
 	public static final String HEALTH_CENTER_SYNC_ID = "ugandaemrsync.healthCenterSyncId";
 	
 	public static final String SERVER_PROTOCOL = "ugandaemrsync.protocol";
-	
+
+	public static final String INITIAL_SYNC = "ugandaemrsync.init";
+
+	public static final String INITIAL_SYNC_PLACE_HOLDER = "false";
+
 	public static final String SERVER_PROTOCOL_PLACE_HOLDER = "http://";
 	
 	public static final String SERVER_IP_PLACE_HOLDER = "192.168.1.28:5000";
