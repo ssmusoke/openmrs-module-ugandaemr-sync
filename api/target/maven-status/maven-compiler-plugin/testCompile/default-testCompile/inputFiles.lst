@@ -1,5 +1,2 @@
-/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/test/java/org/openmrs/module/ugandaemr/sync/api/api/db/hibernate/HibernateSyncDAOTest.java
-/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/test/java/org/openmrs/module/ugandaemr/sync/api/ugserver/HTTPURLConnectionTest.java
-/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/test/java/org/openmrs/module/ugandaemr/sync/api/GlobalPropertyTest.java
-/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/test/java/org/openmrs/module/ugandaemr/sync/api/UgandaEMRSyncServiceTest.java
-/Users/lubwamasamuel/projects/openmrs/modules/org.openmrs.module.ugandaemr.sync/api/src/test/java/org/openmrs/module/ugandaemr/sync/api/ugserver/PostTest.java
+/Users/carapai/Projects/openmrs-module-ugandaemr-sync/api/src/test/java/org/openmrs/module/ugandaemrsync/UgandaEMRSyncServiceTest.java
+/Users/carapai/Projects/openmrs-module-ugandaemr-sync/api/src/test/java/org/openmrs/module/ugandaemrsync/dao/UgandaEMRSyncDaoTest.java
