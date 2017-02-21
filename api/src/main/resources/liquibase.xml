@@ -36,7 +36,7 @@
                                  referencedColumnNames="user_id" />
     </changeSet> -->
 
-    <changeSet id="20160928-1601" author="ssmusoke" dbms="mysql">
+    <changeSet id="20170221-1345" author="slubwama" dbms="mysql">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
