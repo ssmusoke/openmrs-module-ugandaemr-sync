@@ -5,6 +5,9 @@ package org.openmrs.module.ugandaemrsync.server;
  */
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.openmrs.Location;
+import org.openmrs.api.LocationService;
+import org.openmrs.api.context.Context;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
+
+import static org.openmrs.module.ugandaemrsync.server.SyncConstant.HEALTH_CENTER_SYNC_ID;
 
 public class UgandaEMRHttpURLConnection {
 	
@@ -95,9 +100,6 @@ public class UgandaEMRHttpURLConnection {
 			
 			ObjectMapper mapper = new ObjectMapper();
 			Map map = mapper.readValue(result, Map.class);
-			
-			System.out.println(map);
-			// reading the response
 			return map;
 		}
 		catch (Throwable t) {
@@ -105,4 +107,43 @@ public class UgandaEMRHttpURLConnection {
 		}
 		return null;
 	}
+	
+	public Map sendPostBy(String url, String data) throws Exception {
+		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
+		String contentTypeJSON = SyncConstant.JSON_CONTENT_TYPE;
+		
+		String serverIP = syncGlobalProperties.getGlobalProperty(SyncConstant.SERVER_IP);
+		String serverProtocol = syncGlobalProperties.getGlobalProperty(SyncConstant.SERVER_PROTOCOL);
+		String facilitySyncId = syncGlobalProperties.getGlobalProperty(HEALTH_CENTER_SYNC_ID);
+		String facilityURL = serverProtocol + serverIP + "/" + url;
+		
+		return sendPostBy(contentTypeJSON, data, facilitySyncId, facilityURL);
+	}
+	
+	/*Request for facility Id*/
+	
+	public String requestFacilityId() throws Exception {
+		LocationService service = Context.getLocationService();
+		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
+		
+		Location location = service.getLocation(Integer.valueOf(2));
+		
+		Facility facility = new Facility(location.getName());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonInString = mapper.writeValueAsString(facility);
+		
+		Map facilityMap = sendPostBy("api/facility", jsonInString);
+		
+		String uuid = String.valueOf(facilityMap.get("uuid"));
+		
+		if (uuid != null) {
+			syncGlobalProperties.setGlobalProperty(HEALTH_CENTER_SYNC_ID, uuid);
+			return "Facility ID Generated Successfully";
+			
+		}
+		return "Could not generate Facility ID";
+	}
+	
 }

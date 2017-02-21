@@ -9,43 +9,50 @@
  */
 package org.openmrs.module.ugandaemrsync.fragment.controller;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.ugandaemrsync.server.SyncConstant;
 import org.openmrs.module.ugandaemrsync.server.SyncDataRecord;
 import org.openmrs.module.ugandaemrsync.server.SyncGlobalProperties;
+import org.openmrs.module.ugandaemrsync.server.UgandaEMRHttpURLConnection;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageModel;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  *  * Controller for a fragment that shows all users  
  */
-public class SyncRecordsFragmentController {
+public class HomeFragmentController {
+	
+	SyncDataRecord syncDataRecord = new SyncDataRecord();
+	
+	UgandaEMRHttpURLConnection ugandaEMRHttpURLConnection = new UgandaEMRHttpURLConnection();
+	
+	Integer max = 500;
 	
 	public void controller(UiSessionContext sessionContext, FragmentModel model) {
 	}
 	
-	public void get(@SpringBean PageModel pageModel) {
-		
+	public void get(@SpringBean PageModel pageModel) throws Exception {
 		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
+		String facilitySyncId = syncGlobalProperties.getGlobalProperty(SyncConstant.HEALTH_CENTER_SYNC_ID);
+		String initialState = syncGlobalProperties.getGlobalProperty(SyncConstant.INITIAL_SYNC);
 		
-		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
-		String sql = "SELECT record_id,payload FROM sync_record WHERE state = 'NEW'";
-		SQLQuery query = session.createSQLQuery(sql);
-		List results = query.list();
+		if (initialState.equalsIgnoreCase("false")) {
+			pageModel.put("initialSync", true);
+		} else {
+			pageModel.put("initialSync", false);
+		}
 		
-		SyncDataRecord syncDataRecord = new SyncDataRecord();
+		try {
+			UUID uuid = UUID.fromString(facilitySyncId);
+			pageModel.put("requestFacility", false);
+		}
+		catch (IllegalArgumentException exception) {
+			pageModel.put("requestFacility", true);
+		}
 		
-		int numberSynced = syncDataRecord.syncRecords(results);
-		
-		pageModel.put("syncRecords", numberSynced);
 	}
 	
 }

@@ -2,15 +2,16 @@ package org.openmrs.module.ugandaemrsync.server;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.openmrs.Location;
-import org.openmrs.api.LocationService;
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.openmrs.api.context.Context;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 import static org.openmrs.module.ugandaemrsync.server.SyncConstant.HEALTH_CENTER_SYNC_ID;
 
@@ -68,7 +69,6 @@ public class SyncDataRecord {
 	 */
 	public Map syncData(String syncRecord) throws Exception {
 		String contentTypeXML = SyncConstant.XML_CONTENT_TYPE;
-		String contentTypeJSON = SyncConstant.JSON_CONTENT_TYPE;
 		
 		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
 		
@@ -77,7 +77,6 @@ public class SyncDataRecord {
 		String facilitySyncId = syncGlobalProperties.getGlobalProperty(HEALTH_CENTER_SYNC_ID);
 		
 		String url = serverProtocol + serverIP + "/api";
-		String facilityURL = serverProtocol + serverIP + "/api/facility";
 		
 		UgandaEMRHttpURLConnection ugandaEMRHttpURLConnection = new UgandaEMRHttpURLConnection();
 		
@@ -90,27 +89,43 @@ public class SyncDataRecord {
 			
 		}
 		catch (IllegalArgumentException exception) {
-			LocationService service = Context.getLocationService();
-			
-			Location location = service.getLocation(Integer.valueOf(2));
-			
-			Facility facility = new Facility(location.getName());
-			
-			ObjectMapper mapper = new ObjectMapper();
-			
-			String jsonInString = mapper.writeValueAsString(facility);
-			
-			Map facilityMap = ugandaEMRHttpURLConnection.sendPostBy(contentTypeJSON, jsonInString, facilitySyncId,
-			    facilityURL);
-			
-			String uuid = String.valueOf(facilityMap.get("uuid"));
-			
-			if (uuid != null) {
-				syncGlobalProperties.setGlobalProperty(HEALTH_CENTER_SYNC_ID, uuid);
-				facilitySyncId = uuid;
-				return ugandaEMRHttpURLConnection.sendPostBy(contentTypeXML, syncRecord, facilitySyncId, url);
-			}
-			return null;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("message", "No valid facility Id Found");
+			return map;
 		}
+	}
+	
+	public List getDatabaseRecord(String query, String from, String to, List<String> columns) {
+		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
+		String finalQuery = String.format(query, syncGlobalProperties.getGlobalProperty(HEALTH_CENTER_SYNC_ID), from, to);
+		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
+		SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
+		for (String column : columns) {
+			sqlQuery.addScalar(column, Hibernate.STRING);
+		}
+		return sqlQuery.list();
+	}
+	
+	public List getDatabaseRecord(String query) {
+		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
+		SQLQuery sqlQuery = session.createSQLQuery(query);
+		return sqlQuery.list();
+	}
+	
+	public static String convertListOfMapsToJsonString(List list, List<String> columns) throws IOException {
+		JSONArray result = new JSONArray();
+		Iterator it = list.iterator();
+		while (it.hasNext()) {
+			Object rows[] = (Object[]) it.next();
+			JSONObject row = new JSONObject();
+			
+			for (int i = 0; i < columns.size(); i++) {
+				row.put(columns.get(i), rows[i]);
+			}
+			
+			result.put(row);
+		}
+		
+		return result.toString();
 	}
 }
