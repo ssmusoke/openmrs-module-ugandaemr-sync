@@ -8,14 +8,12 @@ import org.openmrs.module.ugandaemrsync.server.SyncDataRecord;
 import org.openmrs.module.ugandaemrsync.server.SyncGlobalProperties;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 /**
  * Created by lubwamasamuel on 21/02/2017.
  */
-public class SyncTask extends AbstractTask{
+public class SyncTask extends AbstractTask {
 
     public void execute() {
         Context.openSession();

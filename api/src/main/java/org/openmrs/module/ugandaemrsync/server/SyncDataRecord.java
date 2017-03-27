@@ -101,7 +101,7 @@ public class SyncDataRecord {
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 		SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
 		for (String column : columns) {
-			sqlQuery.addScalar(column, Hibernate.STRING);
+			sqlQuery.addScalar(column);
 		}
 		return sqlQuery.list();
 	}

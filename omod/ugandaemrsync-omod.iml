@@ -13,6 +13,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ugandaemrsync-api" />
+    <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.web:openmrs-web:1.11.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:jsp-api:2.0" level="project" />
