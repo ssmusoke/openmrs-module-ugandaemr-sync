@@ -1,2 +1,4 @@
-/Users/carapai/Projects/openmrs-module-ugandaemr-sync/api/src/test/java/org/openmrs/module/ugandaemrsync/UgandaEMRSyncServiceTest.java
-/Users/carapai/Projects/openmrs-module-ugandaemr-sync/api/src/test/java/org/openmrs/module/ugandaemrsync/dao/UgandaEMRSyncDaoTest.java
+C:\Users\mets\Documents\openmrs-module-ugandaemr-sync\api\src\test\java\org\openmrs\module\ugandaemrsync\dao\UgandaEMRSyncDaoTest.java
+C:\Users\mets\Documents\openmrs-module-ugandaemr-sync\api\src\test\java\org\openmrs\module\ugandaemrsync\SyncProcessorTest.java
+C:\Users\mets\Documents\openmrs-module-ugandaemr-sync\api\src\test\java\org\openmrs\module\ugandaemrsync\ugserver\HTTPURLConnectionTest.java
+C:\Users\mets\Documents\openmrs-module-ugandaemr-sync\api\src\test\java\org\openmrs\module\ugandaemrsync\ugserver\PostTest.java
