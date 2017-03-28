@@ -14,7 +14,7 @@
 
         <i class="icon-search"></i>
 
-        Sync Data
+        Sync Data Page
     </a>
     <% } %>
     <% if (requestFacility == false && initialSync == true) { %>

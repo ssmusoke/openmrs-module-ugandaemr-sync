@@ -54,7 +54,8 @@ public class GenerateInitialDataFragmentController {
 		Integer encounter_providers = numbers.get("encounter_provider");
 		Integer providers = numbers.get("provider");
 		Integer encounter_roles = numbers.get("encounter_role");
-		
+		Integer fingerprints = numbers.get("fingerprint");
+
 		processData(encounters, "api/encounters", SyncConstant.ENCOUNTER_QUERY, SyncConstant.ENCOUNTER_COLUMNS);
 		processData(obs, "api/obs", SyncConstant.OBS_QUERY, SyncConstant.OBS_COLUMNS);
 		processData(persons, "api/persons", SyncConstant.PATIENT_QUERY, SyncConstant.PATIENT_COLUMNS);
@@ -70,8 +71,8 @@ public class GenerateInitialDataFragmentController {
 		processData(encounter_providers, "api/encounter_providers", SyncConstant.ENCOUNTER_PROVIDER_QUERY,
 		    SyncConstant.ENCOUNTER_PROVIDER_COLUMNS);
 		processData(providers, "api/providers", SyncConstant.PROVIDER_QUERY, SyncConstant.PROVIDER_COLUMNS);
-		/*processData(encounter_roles, "api/encounter_roles", SyncConstant.ENCOUNTER_ROLE_QUERY,
-		    SyncConstant.ENCOUNTER_ROLE_COLUMNS);*/
+		processData(encounter_roles, "api/fingerprints", SyncConstant.FINGERPRINT_QUERY,
+		    SyncConstant.FINGERPRINT_COLUMNS);
 		
 		pageModel.put("persons", totals);
 		

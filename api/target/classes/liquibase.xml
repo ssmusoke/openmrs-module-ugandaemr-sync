@@ -35,5 +35,27 @@
         <addForeignKeyConstraint constraintName="ugandaemrsync_item_owner_fk" baseTableName="ugandaemrsync_item" baseColumnNames="owner"  referencedTableName="users"
                                  referencedColumnNames="user_id" />
     </changeSet> -->
+
+    <changeSet id="20170221-1345" author="slubwama" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM scheduler_task_config
+                WHERE schedulable_class = 'org.openmrs.module.ugandaemrsync.SyncTask'
+                And name = 'UgandaEMR Sync Task'
+            </sqlCheck>
+        </preConditions>
+        <comment>Inserting  UgandaEMR Sync Task into 'schedule_task_config' table</comment>
+        <insert tableName="scheduler_task_config">
+            <column name="name" value="UgandaEMR Sync Task" />
+            <column name="description" value="Synchronises Data to given Server" />
+            <column name="schedulable_class" value="org.openmrs.module.ugandaemrsync.SyncTask" />
+            <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+            <column name="start_time" valueDate="2016-09-28T23:59:59" />
+            <column name="repeat_interval" value="86400" />
+            <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+            <column name="created_by" value="1" />
+            <column name="uuid" value="90326ea2-f81e-11e6-bc64-92361f002671" />
+        </insert>
+    </changeSet>
  
 </databaseChangeLog>
