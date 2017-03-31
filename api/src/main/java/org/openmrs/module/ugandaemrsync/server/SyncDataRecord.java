@@ -2,7 +2,6 @@ package org.openmrs.module.ugandaemrsync.server;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -101,7 +100,7 @@ public class SyncDataRecord {
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 		SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
 		for (String column : columns) {
-			sqlQuery.addScalar(column, Hibernate.STRING);
+			sqlQuery.addScalar(column);
 		}
 		return sqlQuery.list();
 	}
@@ -127,5 +126,33 @@ public class SyncDataRecord {
 		}
 		
 		return result.toString();
+	}
+	
+	public void processData(Integer mySize, String url, String query, List<String> columns, Integer max) throws Exception {
+		
+		int startIndex = 0;
+		boolean entireListNotProcessed = true;
+		int offset = 0;
+		while (entireListNotProcessed) {
+			List records = getDatabaseRecord(query, String.valueOf(offset), String.valueOf(max), columns);
+			String json = SyncDataRecord.convertListOfMapsToJsonString(records, columns);
+			ugandaEMRHttpURLConnection.sendPostBy(url, json);
+			if (offset >= mySize || mySize <= max) {
+				entireListNotProcessed = false;
+			} else {
+				startIndex = startIndex + 1;
+			}
+			offset = (startIndex * max) + 1;
+		}
+	}
+	
+	public Map<String, Integer> convertListToMap(List list) {
+		Map<String, Integer> result = new HashMap<String, Integer>();
+		Iterator it = list.iterator();
+		while (it.hasNext()) {
+			Object rows[] = (Object[]) it.next();
+			result.put(String.valueOf(rows[1]), Integer.valueOf(String.valueOf(rows[0])));
+		}
+		return result;
 	}
 }
