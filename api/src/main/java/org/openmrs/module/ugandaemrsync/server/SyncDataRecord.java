@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.StringType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openmrs.api.context.Context;
@@ -100,7 +101,7 @@ public class SyncDataRecord {
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 		SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
 		for (String column : columns) {
-			sqlQuery.addScalar(column);
+			sqlQuery.addScalar(column, StringType.INSTANCE);
 		}
 		return sqlQuery.list();
 	}
@@ -124,12 +125,10 @@ public class SyncDataRecord {
 			
 			result.put(row);
 		}
-		
 		return result.toString();
 	}
 	
 	public void processData(Integer mySize, String url, String query, List<String> columns, Integer max) throws Exception {
-		
 		int startIndex = 0;
 		boolean entireListNotProcessed = true;
 		int offset = 0;

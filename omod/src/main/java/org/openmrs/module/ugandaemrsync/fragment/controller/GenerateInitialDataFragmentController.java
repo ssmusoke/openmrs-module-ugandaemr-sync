@@ -48,7 +48,8 @@ public class GenerateInitialDataFragmentController {
 		Integer visits = numbers.get("visit");
 		Integer encounter_providers = numbers.get("encounter_provider");
 		Integer providers = numbers.get("provider");
-		// Integer encounter_roles = numbers.get("encounter_role");
+		Integer encounter_roles = numbers.get("encounter_role");
+		
 		Integer fingerprints = numbers.get("fingerprint");
 		
 		syncDataRecord.processData(encounters, "api/encounters", SyncConstant.ENCOUNTER_QUERY,
