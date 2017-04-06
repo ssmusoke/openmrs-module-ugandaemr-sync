@@ -211,7 +211,7 @@ public class SyncConstant {
 	        + "  'NEW'                             AS state\n" + "FROM encounter_role er\n" + "LIMIT %s, %s";
 	
 	public static final String FINGERPRINT_QUERY = "SELECT\n" + "  patient,\n" + "  finger,\n" + "  fingerprint,\n"
-	        + "  uploaded\n" + "FROM fingerprint\n" + "LIMIT %s %s";
+	        + "  uploaded,\n" + "  '%s'  AS facility,\n" + "  'NEW' AS state\n" + "FROM fingerprint\n" + "LIMIT %s, %s";
 	
 	public static final String TABLES_TOTAL_QUERY = "SELECT\n" + "  COUNT(encounter_id) AS number,\n"
 	        + "  'encounter'         AS table_name\n" + "FROM encounter\n" + "UNION ALL\n" + "SELECT\n"
@@ -231,7 +231,7 @@ public class SyncConstant {
 	        + "  'provider'         AS table_name\n" + "FROM provider\n" + "UNION ALL\n" + "SELECT\n"
 	        + "  COUNT(encounter_role_id) AS number,\n" + "  'encounter_role'         AS table_name\n"
 	        + "FROM encounter_role\n" + "UNION ALL\n" + "SELECT\n" + "  COUNT(fingerprint_id) AS number,\n"
-	        + "  'fingerprint'         AS table_name\n" + "FROM fingerprint;";
+	        + "  'fingerprint'         AS table_name\n" + "FROM fingerprint";
 	
 	public static List<String> ENCOUNTER_COLUMNS = Arrays.asList("encounter_type", "patient", "location", "form",
 	    "encounter_datetime", "creator", "date_created", "voided", "voided_by", "date_voided", "void_reason", "changed_by",
