@@ -141,7 +141,7 @@ public class SyncDataRecord {
 			} else {
 				startIndex = startIndex + 1;
 			}
-			offset = (startIndex * max) + 1;
+			offset = (startIndex * max);
 		}
 	}
 	
