@@ -210,8 +210,9 @@ public class SyncConstant {
 	        + "  uuid,\n" + "  '%s'                              AS facility,\n"
 	        + "  'NEW'                             AS state\n" + "FROM encounter_role er\n" + "LIMIT %s, %s";
 	
-	public static final String FINGERPRINT_QUERY = "SELECT\n" + "  patient,\n" + "  finger,\n" + "  fingerprint,\n"
-	        + "  uploaded,\n" + "  '%s'  AS facility,\n" + "  'NEW' AS state\n" + "FROM fingerprint\n" + "LIMIT %s, %s";
+	public static final String FINGERPRINT_QUERY = "SELECT\n" + "  fingerprint_id,\n" + "  patient,\n" + "  finger,\n"
+	        + "  fingerprint,\n" + "  uploaded,\n" + "  '%s'  AS facility,\n" + "  'NEW' AS state\n"
+	        + "FROM fingerprint WHERE uploaded = 0 LIMIT %s,%s";
 	
 	public static final String TABLES_TOTAL_QUERY = "SELECT\n" + "  COUNT(encounter_id) AS number,\n"
 	        + "  'encounter'         AS table_name\n" + "FROM encounter\n" + "UNION ALL\n" + "SELECT\n"
@@ -281,6 +282,6 @@ public class SyncConstant {
 	    "changed_by", "date_changed", "retired", "retired_by", "date_retired", "retire_reason", "uuid", "provider_role",
 	    "facility", "state");
 	
-	public static List<String> FINGERPRINT_COLUMNS = Arrays.asList("patient", "finger", "fingerprint", "uploaded",
-	    "facility", "state");
+	public static List<String> FINGERPRINT_COLUMNS = Arrays.asList("fingerprint_id", "patient", "finger", "fingerprint",
+	    "uploaded", "facility", "state");
 }

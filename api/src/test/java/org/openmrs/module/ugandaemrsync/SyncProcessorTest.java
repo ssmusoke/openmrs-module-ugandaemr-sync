@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -35,8 +36,8 @@ public class SyncProcessorTest {
 		objects.add(encounters);
 		List<String> columns = Arrays.asList("encounter_id", "person_id", "value_text");
 		
-		String result = SyncDataRecord.convertListOfMapsToJsonString(objects, columns);
-		
+		Map<String, String> dt = SyncDataRecord.convertListOfMapsToJsonString(objects, columns, null);
+		String result = dt.get("json");
 		assertNotNull(result.contains("1"));
 		
 	}
