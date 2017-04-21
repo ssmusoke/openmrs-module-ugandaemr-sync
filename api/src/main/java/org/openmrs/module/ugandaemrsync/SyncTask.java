@@ -26,7 +26,7 @@ public class SyncTask extends AbstractTask {
 		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
 		
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
-		String sql = "SELECT record_id,payload FROM sync_record WHERE state = 'NEW'";
+		String sql = "SELECT record_id,payload FROM sync_record WHERE state = 'NEW' AND contained_classes REGEXP 'org.openmrs.Encounter|org.openmrs.Obs|org.openmrs.Person|org.openmrs.PersonName|org.openmrs.PersonAddress|org.openmrs.PersonAttribute|org.openmrs.Patient|org.openmrs.PatientIdentifier|org.openmrs.Visit|org.openmrs.EncounterProvider|org.openmrs.Provider|org.openmrs.EncounterRole'";
 		SQLQuery query = session.createSQLQuery(sql);
 		List results = query.list();
 		
@@ -43,7 +43,7 @@ public class SyncTask extends AbstractTask {
 		
 		try {
 			syncDataRecord.processData(fingerprints, "api/fingerprints", SyncConstant.FINGERPRINT_QUERY,
-			    SyncConstant.FINGERPRINT_COLUMNS, max);
+			    SyncConstant.FINGERPRINT_COLUMNS, max, "fingerprint_id", "fingerprint", "uploaded", "1");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

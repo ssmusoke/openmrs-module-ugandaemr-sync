@@ -53,25 +53,29 @@ public class GenerateInitialDataFragmentController {
 		Integer fingerprints = numbers.get("fingerprint");
 		
 		syncDataRecord.processData(encounters, "api/encounters", SyncConstant.ENCOUNTER_QUERY,
-		    SyncConstant.ENCOUNTER_COLUMNS, max);
-		syncDataRecord.processData(obs, "api/obs", SyncConstant.OBS_QUERY, SyncConstant.OBS_COLUMNS, max);
-		syncDataRecord.processData(persons, "api/persons", SyncConstant.PATIENT_QUERY, SyncConstant.PATIENT_COLUMNS, max);
+		    SyncConstant.ENCOUNTER_COLUMNS, max, null, null, null, null);
+		syncDataRecord.processData(obs, "api/obs", SyncConstant.OBS_QUERY, SyncConstant.OBS_COLUMNS, max, null, null, null,
+		    null);
+		syncDataRecord.processData(persons, "api/persons", SyncConstant.PATIENT_QUERY, SyncConstant.PATIENT_COLUMNS, max,
+		    null, null, null, null);
 		syncDataRecord.processData(person_names, "api/person_names", SyncConstant.PERSON_NAME_QUERY,
-		    SyncConstant.PERSON_NAME_COLUMNS, max);
+		    SyncConstant.PERSON_NAME_COLUMNS, max, null, null, null, null);
 		syncDataRecord.processData(person_addresses, "api/person_addresses", SyncConstant.PERSON_ADDRESS_QUERY,
-		    SyncConstant.PERSON_ADDRESS_COLUMNS, max);
+		    SyncConstant.PERSON_ADDRESS_COLUMNS, max, null, null, null, null);
 		syncDataRecord.processData(person_attributes, "api/person_attributes", SyncConstant.PERSON_ATTRIBUTE_QUERY,
-		    SyncConstant.PERSON_ATTRIBUTE_COLUMNS, max);
-		syncDataRecord.processData(patients, "api/patients", SyncConstant.PATIENT_QUERY, SyncConstant.PATIENT_COLUMNS, max);
+		    SyncConstant.PERSON_ATTRIBUTE_COLUMNS, max, null, null, null, null);
+		syncDataRecord.processData(patients, "api/patients", SyncConstant.PATIENT_QUERY, SyncConstant.PATIENT_COLUMNS, max,
+		    null, null, null, null);
 		syncDataRecord.processData(patient_identifiers, "api/patient_identifiers", SyncConstant.PATIENT_IDENTIFIER_QUERY,
-		    SyncConstant.PATIENT_IDENTIFIER_COLUMNS, max);
-		syncDataRecord.processData(visits, "api/visits", SyncConstant.VISIT_QUERY, SyncConstant.VISIT_COLUMNS, max);
+		    SyncConstant.PATIENT_IDENTIFIER_COLUMNS, max, null, null, null, null);
+		syncDataRecord.processData(visits, "api/visits", SyncConstant.VISIT_QUERY, SyncConstant.VISIT_COLUMNS, max, null,
+		    null, null, null);
 		syncDataRecord.processData(encounter_providers, "api/encounter_providers", SyncConstant.ENCOUNTER_PROVIDER_QUERY,
-		    SyncConstant.ENCOUNTER_PROVIDER_COLUMNS, max);
+		    SyncConstant.ENCOUNTER_PROVIDER_COLUMNS, max, null, null, null, null);
 		syncDataRecord.processData(providers, "api/providers", SyncConstant.PROVIDER_QUERY, SyncConstant.PROVIDER_COLUMNS,
-		    max);
+		    max, null, null, null, null);
 		syncDataRecord.processData(fingerprints, "api/fingerprints", SyncConstant.FINGERPRINT_QUERY,
-		    SyncConstant.FINGERPRINT_COLUMNS, max);
+		    SyncConstant.FINGERPRINT_COLUMNS, max, "fingerprint_id", "fingerprint", "uploaded", "1");
 		
 		pageModel.put("persons", totals);
 		

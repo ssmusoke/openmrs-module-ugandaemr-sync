@@ -1,5 +1,6 @@
 package org.openmrs.module.ugandaemrsync.server;
 
+import com.google.common.base.Joiner;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SQLQuery;
@@ -112,29 +113,46 @@ public class SyncDataRecord {
 		return sqlQuery.list();
 	}
 	
-	public static String convertListOfMapsToJsonString(List list, List<String> columns) throws IOException {
+	public int update(String query) {
+		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
+		SQLQuery sqlQuery = session.createSQLQuery(query);
+		return sqlQuery.executeUpdate();
+	}
+	
+	public static Map<String, String> convertListOfMapsToJsonString(List list, List<String> columns, String updateColumn)
+	        throws IOException {
 		JSONArray result = new JSONArray();
 		Iterator it = list.iterator();
+		List<String> valuesToBeUpdated = new ArrayList<String>();
+		Map<String, String> vals = new HashMap<String, String>();
 		while (it.hasNext()) {
 			Object rows[] = (Object[]) it.next();
 			JSONObject row = new JSONObject();
 			
 			for (int i = 0; i < columns.size(); i++) {
-				row.put(columns.get(i), rows[i]);
+				if (updateColumn == null || !columns.get(i).equalsIgnoreCase(updateColumn)) {
+					row.put(columns.get(i), rows[i]);
+				} else {
+					valuesToBeUpdated.add(String.valueOf(rows[i]));
+				}
 			}
 			
 			result.put(row);
 		}
-		return result.toString();
+		vals.put("json", result.toString());
+		vals.put("updateValues", Joiner.on(",").join(valuesToBeUpdated));
+		return vals;
 	}
 	
-	public void processData(Integer mySize, String url, String query, List<String> columns, Integer max) throws Exception {
+	public void processData(Integer mySize, String url, String query, List<String> columns, Integer max,
+	        String updateColumn, String table, String columnToUpdate, String value) throws Exception {
 		int startIndex = 0;
 		boolean entireListNotProcessed = true;
 		int offset = 0;
 		while (entireListNotProcessed) {
 			List records = getDatabaseRecord(query, String.valueOf(offset), String.valueOf(max), columns);
-			String json = SyncDataRecord.convertListOfMapsToJsonString(records, columns);
+			Map<String, String> data = SyncDataRecord.convertListOfMapsToJsonString(records, columns, updateColumn);
+			String json = data.get("json");
 			ugandaEMRHttpURLConnection.sendPostBy(url, json);
 			if (offset >= mySize || mySize <= max) {
 				entireListNotProcessed = false;
@@ -142,6 +160,13 @@ public class SyncDataRecord {
 				startIndex = startIndex + 1;
 			}
 			offset = (startIndex * max);
+			
+			if (updateColumn != null) {
+				String conditions = data.get("updateValues");
+				String realQuery = "UPDATE TABLE " + table + " SET " + columnToUpdate + " ='" + value + "' WHERE "
+				        + updateColumn + " IN(" + conditions + ")";
+				update(realQuery);
+			}
 		}
 	}
 	
