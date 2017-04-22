@@ -163,8 +163,8 @@ public class SyncDataRecord {
 			
 			if (updateColumn != null) {
 				String conditions = data.get("updateValues");
-				String realQuery = "UPDATE TABLE " + table + " SET " + columnToUpdate + " ='" + value + "' WHERE "
-				        + updateColumn + " IN(" + conditions + ")";
+				String realQuery = "UPDATE " + table + " SET " + columnToUpdate + " ='" + value + "' WHERE " + updateColumn
+				        + " IN(" + conditions + ")";
 				update(realQuery);
 			}
 		}
