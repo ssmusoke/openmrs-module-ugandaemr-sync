@@ -47,9 +47,9 @@ public class SyncConstant {
 
     public static Date MINIMUM_DATE = new Date(Long.MIN_VALUE);
 
-    public static DateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    public static DateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 
-    public static final String LAST_SYNC_DATE_PLACE_HOLDER = DEFAULT_DATE_FORMAT.format(MINIMUM_DATE);
+    public static final String LAST_SYNC_DATE_PLACE_HOLDER = "1900-01-01 00:00:00";
 
     public static final String MAX_NUMBER_OF_ROWS = "ugandaemr.maxNumberOfRows";
 

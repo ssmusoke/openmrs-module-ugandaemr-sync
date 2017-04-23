@@ -89,7 +89,7 @@ public class SyncProcessorTest {
 		String lastSyncDate = "2010-01-01 12:01:01";
 		
 		String allThree = personQuery.replaceAll("lastSync", lastSyncDate);
-
+		
 		assertTrue(allThree.contains("2010-01-01"));
 	}
 }

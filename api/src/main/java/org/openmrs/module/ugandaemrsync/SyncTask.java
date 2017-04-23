@@ -14,10 +14,10 @@ public class SyncTask extends AbstractTask {
 		if (!Context.isAuthenticated()) {
 			authenticate();
 		}
-
+		
 		SyncDataRecord syncDataRecord = new SyncDataRecord();
 		
 		syncDataRecord.syncData();
-
+		
 	}
 }
