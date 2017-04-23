@@ -36,7 +36,7 @@ public class SyncProcessorTest {
 		objects.add(encounters);
 		List<String> columns = Arrays.asList("encounter_id", "person_id", "value_text");
 		
-		Map<String, String> dt = SyncDataRecord.convertListOfMapsToJsonString(objects, columns, null);
+		Map<String, String> dt = SyncDataRecord.convertListOfMapsToJsonString(objects, columns);
 		String result = dt.get("json");
 		assertNotNull(result.contains("1"));
 		
@@ -48,9 +48,10 @@ public class SyncProcessorTest {
 		String limitFrom = "1";
 		String limitTo = "10";
 		
-		String personQuery = SyncConstant.PERSON_QUERY;
-		
-		String personQueryWith = String.format(personQuery, facilityId, limitFrom, limitTo);
+		String personQuery = SyncConstant.ENCOUNTER_QUERY;
+		String lastSyncDate = "2010-01-01 12:01:01";
+		String personQueryWith = String.format(personQuery, facilityId, lastSyncDate, lastSyncDate, lastSyncDate, limitFrom,
+		    limitTo);
 		
 		/*Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 
@@ -75,9 +76,20 @@ public class SyncProcessorTest {
 			} else {
 				startIndex = startIndex + 1;
 			}
-			offset = (startIndex * 500) + 1;
+			offset = (startIndex * 500);
 			
 		}
 		
+	}
+	
+	@Test
+	public void shouldTestReplace() {
+		String personQuery = SyncConstant.TABLES_TOTAL_QUERY;
+		
+		String lastSyncDate = "2010-01-01 12:01:01";
+		
+		String allThree = personQuery.replaceAll("lastSync", lastSyncDate);
+
+		assertTrue(allThree.contains("2010-01-01"));
 	}
 }
