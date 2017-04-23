@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.openmrs.module.ugandaemrsync.server.SyncConstant.HEALTH_CENTER_SYNC_ID;
+import static org.openmrs.module.ugandaemrsync.server.SyncConstant.LAST_SYNC_DATE;
 
 /**
  * Created by lubwamasamuel on 07/11/2016.
@@ -68,7 +69,7 @@ public class SyncDataRecord {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map syncData(String syncRecord) throws Exception {
+	private Map syncData(String syncRecord) throws Exception {
 		String contentTypeXML = SyncConstant.XML_CONTENT_TYPE;
 		
 		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
@@ -96,9 +97,22 @@ public class SyncDataRecord {
 		}
 	}
 	
-	public List getDatabaseRecord(String query, String from, String to, List<String> columns) {
+	private List getDatabaseRecord(String query, String from, String to, int datesToBeReplaced, List<String> columns) {
 		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
-		String finalQuery = String.format(query, syncGlobalProperties.getGlobalProperty(HEALTH_CENTER_SYNC_ID), from, to);
+		
+		String facilityId = syncGlobalProperties.getGlobalProperty(HEALTH_CENTER_SYNC_ID);
+		String lastSyncDate = syncGlobalProperties.getGlobalProperty(LAST_SYNC_DATE);
+		
+		String finalQuery;
+		if (datesToBeReplaced == 1) {
+			finalQuery = String.format(query, facilityId, lastSyncDate, from, to);
+		} else if (datesToBeReplaced == 2) {
+			finalQuery = String.format(query, facilityId, lastSyncDate, lastSyncDate, from, to);
+		} else if (datesToBeReplaced == 3) {
+			finalQuery = String.format(query, facilityId, lastSyncDate, lastSyncDate, lastSyncDate, from, to);
+		} else {
+			finalQuery = String.format(query, facilityId, from, to);
+		}
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 		SQLQuery sqlQuery = session.createSQLQuery(finalQuery);
 		for (String column : columns) {
@@ -107,20 +121,13 @@ public class SyncDataRecord {
 		return sqlQuery.list();
 	}
 	
-	public List getDatabaseRecord(String query) {
+	private List getDatabaseRecord(String query) {
 		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
 		SQLQuery sqlQuery = session.createSQLQuery(query);
 		return sqlQuery.list();
 	}
 	
-	public int update(String query) {
-		Session session = Context.getRegisteredComponent("sessionFactory", SessionFactory.class).getCurrentSession();
-		SQLQuery sqlQuery = session.createSQLQuery(query);
-		return sqlQuery.executeUpdate();
-	}
-	
-	public static Map<String, String> convertListOfMapsToJsonString(List list, List<String> columns, String updateColumn)
-	        throws IOException {
+	public static Map<String, String> convertListOfMapsToJsonString(List list, List<String> columns) throws IOException {
 		JSONArray result = new JSONArray();
 		Iterator it = list.iterator();
 		List<String> valuesToBeUpdated = new ArrayList<String>();
@@ -130,11 +137,7 @@ public class SyncDataRecord {
 			JSONObject row = new JSONObject();
 			
 			for (int i = 0; i < columns.size(); i++) {
-				if (updateColumn == null || !columns.get(i).equalsIgnoreCase(updateColumn)) {
-					row.put(columns.get(i), rows[i]);
-				} else {
-					valuesToBeUpdated.add(String.valueOf(rows[i]));
-				}
+				row.put(columns.get(i), rows[i]);
 			}
 			
 			result.put(row);
@@ -144,14 +147,14 @@ public class SyncDataRecord {
 		return vals;
 	}
 	
-	public void processData(Integer mySize, String url, String query, List<String> columns, Integer max,
-	        String updateColumn, String table, String columnToUpdate, String value) throws Exception {
+	private void processData(Integer mySize, String url, String query, int datesToBeReplaced, List<String> columns,
+	        Integer max) throws Exception {
 		int startIndex = 0;
 		boolean entireListNotProcessed = true;
 		int offset = 0;
 		while (entireListNotProcessed) {
-			List records = getDatabaseRecord(query, String.valueOf(offset), String.valueOf(max), columns);
-			Map<String, String> data = SyncDataRecord.convertListOfMapsToJsonString(records, columns, updateColumn);
+			List records = getDatabaseRecord(query, String.valueOf(offset), String.valueOf(max), datesToBeReplaced, columns);
+			Map<String, String> data = SyncDataRecord.convertListOfMapsToJsonString(records, columns);
 			String json = data.get("json");
 			ugandaEMRHttpURLConnection.sendPostBy(url, json);
 			if (offset >= mySize || mySize <= max) {
@@ -160,17 +163,10 @@ public class SyncDataRecord {
 				startIndex = startIndex + 1;
 			}
 			offset = (startIndex * max);
-			
-			if (updateColumn != null) {
-				String conditions = data.get("updateValues");
-				String realQuery = "UPDATE " + table + " SET " + columnToUpdate + " ='" + value + "' WHERE " + updateColumn
-				        + " IN(" + conditions + ")";
-				update(realQuery);
-			}
 		}
 	}
 	
-	public Map<String, Integer> convertListToMap(List list) {
+	private Map<String, Integer> convertListToMap(List list) {
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		Iterator it = list.iterator();
 		while (it.hasNext()) {
@@ -178,5 +174,66 @@ public class SyncDataRecord {
 			result.put(String.valueOf(rows[1]), Integer.valueOf(String.valueOf(rows[0])));
 		}
 		return result;
+	}
+	
+	public List syncData() {
+		
+		SyncGlobalProperties syncGlobalProperties = new SyncGlobalProperties();
+		
+		String lastSyncDate = syncGlobalProperties.getGlobalProperty(SyncConstant.LAST_SYNC_DATE);
+		String totalsQuery = SyncConstant.TABLES_TOTAL_QUERY;
+		
+		List totals = getDatabaseRecord(totalsQuery.replaceAll("lastSync", lastSyncDate));
+		
+		Integer max = Integer.valueOf(syncGlobalProperties.getGlobalProperty(SyncConstant.MAX_NUMBER_OF_ROWS));
+		
+		Map<String, Integer> numbers = convertListToMap(totals);
+		
+		Integer encounters = numbers.get("encounter");
+		Integer obs = numbers.get("obs");
+		Integer persons = numbers.get("person");
+		Integer person_names = numbers.get("person_name");
+		Integer person_addresses = numbers.get("person_address");
+		Integer person_attributes = numbers.get("person_attribute");
+		Integer patients = numbers.get("patient");
+		Integer patient_identifiers = numbers.get("patient_identifier");
+		Integer visits = numbers.get("visit");
+		Integer encounter_providers = numbers.get("encounter_provider");
+		Integer providers = numbers.get("provider");
+		Integer encounter_roles = numbers.get("encounter_role");
+		
+		Integer fingerprints = numbers.get("fingerprint");
+		
+		try {
+			processData(encounters, "api/encounters", SyncConstant.ENCOUNTER_QUERY, 3, SyncConstant.ENCOUNTER_COLUMNS, max);
+			processData(obs, "api/obs", SyncConstant.OBS_QUERY, 2, SyncConstant.OBS_COLUMNS, max);
+			processData(persons, "api/persons", SyncConstant.PATIENT_QUERY, 3, SyncConstant.PATIENT_COLUMNS, max);
+			processData(person_names, "api/person_names", SyncConstant.PERSON_NAME_QUERY, 3,
+			    SyncConstant.PERSON_NAME_COLUMNS, max);
+			processData(person_addresses, "api/person_addresses", SyncConstant.PERSON_ADDRESS_QUERY, 3,
+			    SyncConstant.PERSON_ADDRESS_COLUMNS, max);
+			processData(person_attributes, "api/person_attributes", SyncConstant.PERSON_ATTRIBUTE_QUERY, 3,
+			    SyncConstant.PERSON_ATTRIBUTE_COLUMNS, max);
+			processData(patients, "api/patients", SyncConstant.PATIENT_QUERY, 3, SyncConstant.PATIENT_COLUMNS, max);
+			processData(patient_identifiers, "api/patient_identifiers", SyncConstant.PATIENT_IDENTIFIER_QUERY, 3,
+			    SyncConstant.PATIENT_IDENTIFIER_COLUMNS, max);
+			processData(visits, "api/visits", SyncConstant.VISIT_QUERY, 3, SyncConstant.VISIT_COLUMNS, max);
+			processData(encounter_providers, "api/encounter_providers", SyncConstant.ENCOUNTER_PROVIDER_QUERY, 3,
+			    SyncConstant.ENCOUNTER_PROVIDER_COLUMNS, max);
+			processData(providers, "api/providers", SyncConstant.PROVIDER_QUERY, 3, SyncConstant.PROVIDER_COLUMNS, max);
+			processData(fingerprints, "api/fingerprints", SyncConstant.FINGERPRINT_QUERY, 1,
+			    SyncConstant.FINGERPRINT_COLUMNS, max);
+			
+			Date now = new Date();
+			
+			String newSyncDate = SyncConstant.DEFAULT_DATE_FORMAT.format(now);
+			
+			syncGlobalProperties.setGlobalProperty(SyncConstant.LAST_SYNC_DATE, newSyncDate);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return totals;
 	}
 }

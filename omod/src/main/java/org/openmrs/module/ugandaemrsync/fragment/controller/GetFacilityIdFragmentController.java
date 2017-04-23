@@ -10,14 +10,10 @@
 package org.openmrs.module.ugandaemrsync.fragment.controller;
 
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.ugandaemrsync.server.SyncConstant;
-import org.openmrs.module.ugandaemrsync.server.SyncGlobalProperties;
 import org.openmrs.module.ugandaemrsync.server.UgandaEMRHttpURLConnection;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageModel;
-
-import java.util.UUID;
 
 /**
  *  * Controller for a fragment that shows all users  

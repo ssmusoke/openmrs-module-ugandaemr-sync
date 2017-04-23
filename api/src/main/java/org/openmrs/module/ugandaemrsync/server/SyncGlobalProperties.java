@@ -41,6 +41,16 @@ public class SyncGlobalProperties {
 			setGlobalProperty(HEALTH_CENTER_SYNC_ID, HEALTH_CENTER_SYNC_ID_PLACE_HOLDER);
 			log.info("Place Holder for HC Sync ID is set");
 		}
+		
+		if (getGlobalProperty(LAST_SYNC_DATE) == null) {
+			setGlobalProperty(LAST_SYNC_DATE, LAST_SYNC_DATE_PLACE_HOLDER);
+			log.info("Place Holder for last sync date is set");
+		}
+		
+		if (getGlobalProperty(MAX_NUMBER_OF_ROWS) == null) {
+			setGlobalProperty(MAX_NUMBER_OF_ROWS, MAX_NUMBER_OF_ROWS_PLACE_HOLDER);
+			log.info("Place Holder for max number of row is set");
+		}
 	}
 	
 	public GlobalProperty setGlobalProperty(String property, String propertyValue) {
