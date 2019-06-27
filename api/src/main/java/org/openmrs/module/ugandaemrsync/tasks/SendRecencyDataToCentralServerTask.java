@@ -1,4 +1,5 @@
 package org.openmrs.module.ugandaemrsync.tasks;
+import org.openmrs.module.ugandaemrsync.UgandaEMRSyncConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,15 +28,6 @@ import java.util.Date;
 
 public class SendRecencyDataToCentralServerTask extends AbstractTask {
 
-    public static final String MIRTH_URL = "http://mirth-tcp.globalhealthapp.net:6001";
-    public static final String GOOGLE_COM = "http://www.google.com";
-    public static final String SERVER_URL = "http://mirth-tcp.globalhealthapp.net";
-    public static final String GOOGLE_SUCCESS = "Successful connection to the internet.";
-    public static final String MIRHT_SUCCESS = "Successfully established connecton to Mirth server.";
-    public static final String GOOGLE_FAILED = "Cannot establish internet connectivity.";
-    public static final String MIRTH_FAILED = "Cannot establish connection to mirth server.";
-    public static final String HEADER_EMR_DATE = "x-emr-date";
-    public static String EndPoint = "";
     protected Log log = LogFactory.getLog(getClass());
 
     @Override
@@ -49,13 +41,14 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
             // Uploading data....
             // Data Successfully uploaded
             /* Check internet connectivity */
-            if (netServerIsAvailable(GOOGLE_COM, GOOGLE_SUCCESS, GOOGLE_FAILED) && netServerIsAvailable(SERVER_URL, MIRHT_SUCCESS, MIRTH_FAILED)) {
+            if (netServerIsAvailable(UgandaEMRSyncConfig.GOOGLE_COM, UgandaEMRSyncConfig.GOOGLE_SUCCESS, UgandaEMRSyncConfig.GOOGLE_FAILED)
+                    && netServerIsAvailable(UgandaEMRSyncConfig.SERVER_URL, UgandaEMRSyncConfig.MIRHT_SUCCESS, UgandaEMRSyncConfig.MIRTH_FAILED)) {
                 HttpClient client = new DefaultHttpClient();
-                HttpPost post = new HttpPost(MIRTH_URL);
-                post.addHeader(HEADER_EMR_DATE, new Date().toString());
+                HttpPost post = new HttpPost(UgandaEMRSyncConfig.MIRTH_URL);
+                post.addHeader(UgandaEMRSyncConfig.HEADER_EMR_DATE, new Date().toString());
 
                 UsernamePasswordCredentials credentials
-                        = new UsernamePasswordCredentials("admin", "admin");
+                        = new UsernamePasswordCredentials(UgandaEMRSyncConfig.MIRTH_USERNAME, UgandaEMRSyncConfig.MIRTH_PASSWORD);
                 post.addHeader(new BasicScheme().authenticate(credentials, post, null));
 
                 String theRealShit = getRecencyData();
