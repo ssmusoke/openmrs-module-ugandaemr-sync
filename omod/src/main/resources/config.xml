@@ -17,7 +17,7 @@
     <!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
     <!-- /Base Module Properties -->
 
-    <require_version>${openmrsPlatformVersion}</require_version>
+    <require_version>${openMRSVersion}</require_version>
 
     <require_modules>
         <require_module version="${appframeworkVersion}">

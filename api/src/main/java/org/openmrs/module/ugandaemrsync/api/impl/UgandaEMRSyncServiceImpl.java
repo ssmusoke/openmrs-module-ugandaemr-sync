@@ -9,10 +9,8 @@
  */
 package org.openmrs.module.ugandaemrsync.api.impl;
 
-import org.openmrs.api.APIException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.ugandaemrsync.Item;
 import org.openmrs.module.ugandaemrsync.api.UgandaEMRSyncService;
 import org.openmrs.module.ugandaemrsync.api.dao.UgandaEMRSyncDao;
 
@@ -36,20 +34,6 @@ public class UgandaEMRSyncServiceImpl extends BaseOpenmrsService implements Ugan
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-	
-	@Override
-	public Item getItemByUuid(String uuid) throws APIException {
-		return dao.getItemByUuid(uuid);
-	}
-	
-	@Override
-	public Item saveItem(Item item) throws APIException {
-		if (item.getOwner() == null) {
-			item.setOwner(userService.getUser(1));
-		}
-		
-		return dao.saveItem(item);
 	}
 	
 	@Override

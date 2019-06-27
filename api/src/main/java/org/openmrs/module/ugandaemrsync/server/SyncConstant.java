@@ -408,4 +408,6 @@ public class SyncConstant {
 	
 	public static List<String> FINGERPRINT_COLUMNS = Arrays.asList("patient", "finger", "fingerprint", "date_created",
 	    "facility", "state");
+	
+	public static final String VIRAL_LOAD_ENCOUNTER_QUERY = "SELECT encounter_id, encounter_type, patient_id, location_id, encounter_datetime, uuid, uuid as \"7\", uuid as \"8\", uuid AS '9' FROM encounter LIMIT 5";
 }
