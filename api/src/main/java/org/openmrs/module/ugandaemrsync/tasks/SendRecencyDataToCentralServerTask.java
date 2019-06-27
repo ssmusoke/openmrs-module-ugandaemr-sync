@@ -29,12 +29,13 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
 
     public static final String MIRTH_URL = "http://mirth-tcp.globalhealthapp.net:6001";
     public static final String GOOGLE_COM = "http://www.google.com";
-    public static final String MIRTH_SERVER = "http://mirth-tcp.globalhealthapp.net";
+    public static final String SERVER_URL = "http://mirth-tcp.globalhealthapp.net";
     public static final String GOOGLE_SUCCESS = "Successful connection to the internet.";
     public static final String MIRHT_SUCCESS = "Successfully established connecton to Mirth server.";
     public static final String GOOGLE_FAILED = "Cannot establish internet connectivity.";
     public static final String MIRTH_FAILED = "Cannot establish connection to mirth server.";
     public static final String HEADER_EMR_DATE = "x-emr-date";
+    public static String EndPoint = "";
     protected Log log = LogFactory.getLog(getClass());
 
     @Override
@@ -47,9 +48,8 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
             // Contacting MIRTH server
             // Uploading data....
             // Data Successfully uploaded
-
             /* Check internet connectivity */
-            if (netMirthIsAvailable(GOOGLE_COM, GOOGLE_SUCCESS, GOOGLE_FAILED) && netMirthIsAvailable(MIRTH_SERVER, MIRHT_SUCCESS, MIRTH_FAILED)) {
+            if (netServerIsAvailable(GOOGLE_COM, GOOGLE_SUCCESS, GOOGLE_FAILED) && netServerIsAvailable(SERVER_URL, MIRHT_SUCCESS, MIRTH_FAILED)) {
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost(MIRTH_URL);
                 post.addHeader(HEADER_EMR_DATE, new Date().toString());
@@ -82,7 +82,7 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
         return "patient_id, patient_creator, encounter_id, gravida, para$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0";
     }
 
-    private boolean netMirthIsAvailable(String strUrl, String strSuccess, String strFail) {
+    private boolean netServerIsAvailable(String strUrl, String strSuccess, String strFail) {
         try {
             final URL url = new URL(strUrl);
             final URLConnection conn = url.openConnection();
