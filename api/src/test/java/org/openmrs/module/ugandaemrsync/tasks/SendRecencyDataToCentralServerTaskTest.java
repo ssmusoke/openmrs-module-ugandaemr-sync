@@ -5,18 +5,18 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class ExportRecencyDataToCentralServerTaskTest {
+public class SendRecencyDataToCentralServerTaskTest {
 
-    private ExportRecencyDataToCentralServerTask exportRecencyDataToCentralServerTask;
+    private SendRecencyDataToCentralServerTask sendRecencyDataToCentralServerTask;
 
     @Before
     public void setUp() {
-        exportRecencyDataToCentralServerTask = new ExportRecencyDataToCentralServerTask();
+        sendRecencyDataToCentralServerTask = new SendRecencyDataToCentralServerTask();
     }
 
     @Test
     public void testTaskSending() throws Exception {
-        exportRecencyDataToCentralServerTask.execute();
+        sendRecencyDataToCentralServerTask.execute();
         assertTrue(true);
 
     }

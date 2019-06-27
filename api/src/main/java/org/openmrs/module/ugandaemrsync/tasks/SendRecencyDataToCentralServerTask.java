@@ -25,7 +25,7 @@ import java.util.Date;
  * Posts recency data to the central server
  */
 
-public class ExportRecencyDataToCentralServerTask extends AbstractTask {
+public class SendRecencyDataToCentralServerTask extends AbstractTask {
 
     public static final String MIRTH_URL = "http://mirth-tcp.globalhealthapp.net:6001";
     public static final String GOOGLE_COM = "http://www.google.com";
