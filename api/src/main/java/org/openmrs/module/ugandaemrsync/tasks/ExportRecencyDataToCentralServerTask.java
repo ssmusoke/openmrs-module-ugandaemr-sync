@@ -28,6 +28,12 @@ import java.util.Date;
 public class ExportRecencyDataToCentralServerTask extends AbstractTask {
 
     public static final String MIRTH_URL = "http://mirth-tcp.globalhealthapp.net:6001";
+    public static final String GOOGLE_COM = "http://www.google.com";
+    public static final String MIRTH_SERVER = "http://mirth-tcp.globalhealthapp.net";
+    public static final String GOOGLE_SUCCESS = "Successful connection to the internet.";
+    public static final String MIRHT_SUCCESS = "Successfully established connecton to Mirth server.";
+    public static final String GOOGLE_FAILED = "Cannot establish internet connectivity.";
+    public static final String MIRTH_FAILED = "Cannot establish connection to mirth server.";
     public static final String HEADER_EMR_DATE = "x-emr-date";
     protected Log log = LogFactory.getLog(getClass());
 
@@ -42,8 +48,8 @@ public class ExportRecencyDataToCentralServerTask extends AbstractTask {
             // Uploading data....
             // Data Successfully uploaded
 
-            if (netIsAvailable()) {
-                System.out.println("Successful connection to the internet.");
+            /* Check internet connectivity */
+            if (netMirthIsAvailable(GOOGLE_COM, GOOGLE_SUCCESS, GOOGLE_FAILED) && netMirthIsAvailable(MIRTH_SERVER, MIRHT_SUCCESS, MIRTH_FAILED)) {
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost(MIRTH_URL);
                 post.addHeader(HEADER_EMR_DATE, new Date().toString());
@@ -64,8 +70,6 @@ public class ExportRecencyDataToCentralServerTask extends AbstractTask {
                 HttpResponse response = client.execute(post);
 
                 System.out.println(response.toString());
-            }else{
-                System.out.println("Cannot establish internet connectivity");
             }
 
         } catch (IOException | AuthenticationException e) {
@@ -78,16 +82,18 @@ public class ExportRecencyDataToCentralServerTask extends AbstractTask {
         return "patient_id, patient_creator, encounter_id, gravida, para$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0";
     }
 
-    private static boolean netIsAvailable() {
+    private boolean netMirthIsAvailable(String strUrl, String strSuccess, String strFail) {
         try {
-            final URL url = new URL("http://www.google.com");
+            final URL url = new URL(strUrl);
             final URLConnection conn = url.openConnection();
             conn.connect();
             conn.getInputStream().close();
+            System.out.println(strSuccess);
             return true;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
+            System.out.println(strFail);
             return false;
         }
     }
