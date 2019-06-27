@@ -1,4 +1,5 @@
 package org.openmrs.module.ugandaemrsync.tasks;
+
 import org.openmrs.module.ugandaemrsync.UgandaEMRSyncConfig;
 
 import org.apache.commons.logging.Log;
@@ -27,10 +28,10 @@ import java.util.Date;
  */
 
 public class SendRecencyDataToCentralServerTask extends AbstractTask {
-
-    protected Log log = LogFactory.getLog(getClass());
-
-    @Override
+	
+	protected Log log = LogFactory.getLog(getClass());
+	
+	@Override
     public void execute() {
         log.info("Executing");
         System.out.println("Executing");
@@ -70,24 +71,26 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
         }
 
     }
-
-    private String getRecencyData() {
-        return "patient_id, patient_creator, encounter_id, gravida, para$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0";
-    }
-
-    private boolean netServerIsAvailable(String strUrl, String strSuccess, String strFail) {
-        try {
-            final URL url = new URL(strUrl);
-            final URLConnection conn = url.openConnection();
-            conn.connect();
-            conn.getInputStream().close();
-            System.out.println(strSuccess);
-            return true;
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            System.out.println(strFail);
-            return false;
-        }
-    }
+	
+	private String getRecencyData() {
+		return "patient_id, patient_creator, encounter_id, gravida, para$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0$$$232,5,0,0,0$$$248,10,0,0,0$$$334,10,0,0,0$$$336,10,0,0,0$$$401,7,0,0,0";
+	}
+	
+	private boolean netServerIsAvailable(String strUrl, String strSuccess, String strFail) {
+		try {
+			final URL url = new URL(strUrl);
+			final URLConnection conn = url.openConnection();
+			conn.connect();
+			conn.getInputStream().close();
+			System.out.println(strSuccess);
+			return true;
+		}
+		catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		catch (IOException e) {
+			System.out.println(strFail);
+			return false;
+		}
+	}
 }

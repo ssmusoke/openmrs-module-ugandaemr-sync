@@ -10,11 +10,6 @@ import org.openmrs.scheduler.tasks.AbstractTask;
 public class SyncTask extends AbstractTask {
 	
 	public void execute() {
-		Context.openSession();
-		if (!Context.isAuthenticated()) {
-			authenticate();
-		}
-		
 		SyncDataRecord syncDataRecord = new SyncDataRecord();
 		
 		syncDataRecord.syncData();

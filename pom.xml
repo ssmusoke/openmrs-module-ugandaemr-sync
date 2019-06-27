@@ -104,7 +104,7 @@
     </pluginRepositories>
 
     <properties>
-        <openmrsPlatformVersion>1.11.6</openmrsPlatformVersion>
+        <openmrsPlatformVersion>2.0.6</openmrsPlatformVersion>
         <appuiVersion>1.7</appuiVersion>
     </properties>
 </project>
