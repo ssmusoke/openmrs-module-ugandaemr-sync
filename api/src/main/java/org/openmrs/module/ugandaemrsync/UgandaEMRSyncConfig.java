@@ -28,5 +28,6 @@ public class UgandaEMRSyncConfig {
 	public static final String MIRTH_USERNAME = "admin";
 	public static final String MIRTH_PASSWORD = "admin";
 	public static final String HEADER_EMR_DATE = "x-emr-date";
+	public static final String HEADER_EMR_DATE = "ugandaemr.dhis2.organizationuuid";
 	public static String EndPoint = "";
 }

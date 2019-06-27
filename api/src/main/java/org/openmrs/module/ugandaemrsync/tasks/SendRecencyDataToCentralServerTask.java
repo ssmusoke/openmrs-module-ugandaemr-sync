@@ -51,12 +51,12 @@ public class SendRecencyDataToCentralServerTask extends AbstractTask {
                         = new UsernamePasswordCredentials(UgandaEMRSyncConfig.MIRTH_USERNAME, UgandaEMRSyncConfig.MIRTH_PASSWORD);
                 post.addHeader(new BasicScheme().authenticate(credentials, post, null));
 
-                String theRealShit = getRecencyData();
+                String bodyText = getRecencyData();
 
                 HttpEntity multipart = MultipartEntityBuilder.create()
                         .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
                         .addTextBody("facility_uuid", "93e74c67-f37f-40b8-af6c-94cdf0ea22bb")
-                        .addTextBody("data", theRealShit, ContentType.TEXT_PLAIN)
+                        .addTextBody("data", bodyText, ContentType.TEXT_PLAIN)
                         .build();
                 post.setEntity(multipart);
 
