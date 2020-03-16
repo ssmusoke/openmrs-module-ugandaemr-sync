@@ -368,8 +368,8 @@
         <openMRSVersion>2.0.6</openMRSVersion>
         <appuiVersion>1.7</appuiVersion>
         <uiframeworkVersion>3.15.0</uiframeworkVersion>
-        <ugandaemrReportsVersion>2.0.12-SNAPSHOT</ugandaemrReportsVersion>
-        <reportingVersion>1.20.0-SNAPSHOT</reportingVersion>
+        <ugandaemrReportsVersion>2.0.12</ugandaemrReportsVersion>
+        <reportingVersion>1.20.0</reportingVersion>
         <calculationVersion>1.1</calculationVersion>
         <serialization.xstreamVersion>0.2.14</serialization.xstreamVersion>
         <metadatadeployVersion>1.10.0</metadatadeployVersion>
