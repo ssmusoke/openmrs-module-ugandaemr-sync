@@ -75,13 +75,6 @@ public class SendAnalyticsDataToCentralServerTask extends AbstractTask {
 			return;
 		}
 
-		if (!isGpAnalyticsServerPasswordSet()) {
-			return;
-		}
-		if (!isGpAnalyticsServerUsernameSet()) {
-			return;
-		}
-
 		String analyticsServerUrlEndPoint = syncGlobalProperties.getGlobalProperty(GP_ANALYTICS_SERVER_URL);
 		String analyticsBaseUrl = ugandaEMRHttpURLConnection.getBaseURL(analyticsServerUrlEndPoint);
 
